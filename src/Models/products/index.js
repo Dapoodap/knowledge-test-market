@@ -14,10 +14,12 @@ const Products = db.define(
     },
     namaProduct: {
       type: DataTypes.STRING,
-      primaryKey: true,
+    },
+    deskripsiProduct: {
+      type: DataTypes.TEXT,
     },
     hargaProduct: {
-      type: DataTypes.STRING,
+      type: DataTypes.DECIMAL,
     },
    
   },

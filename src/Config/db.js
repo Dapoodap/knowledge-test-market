@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
 
+//koneksi ke database
 const conn = new Sequelize("market_db", "postgres", "dapos535", {
-    host: "localhost", // Perhatikan penulisan "localhost" dengan benar
+    host: "localhost", 
     port: 5432, // Port default PostgreSQL
     dialect: "postgres"
 });
