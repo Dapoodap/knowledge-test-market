@@ -32,12 +32,12 @@ module.exports = {
     //kalo gak ketemu di handle dibawah
     if (theProduct == null) {
       return res.status(404).json({
-        message: "can't find the product",
+        message: "tidak dapat menemukan product id",
         data: null,
       });
     }
     return res.status(200).json({
-      message: "user berhasil ditemukan",
+      message: "product berhasil ditemukan",
       data: theProduct,
     });
   },
@@ -98,14 +98,14 @@ module.exports = {
       });
 
       if (!editedProduct[0]) {
-        return res.status(500).json({
-          message: "Gagal mengupdate data produk",
+        return res.status(404).json({
+          message: "Gagal mengupdate data produk, id tidak ditemukan",
           data: null,
         });
       } else {
         return res.status(200).json({
           message: "Data produk berhasil diperbarui",
-          data: editedProduct,
+          data: updateData,
         });
       }
     } catch (error) {

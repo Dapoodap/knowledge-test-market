@@ -42,7 +42,7 @@ module.exports = {
        //jika tidak ada alias null, maka tidak akan ketemu
        if (theUser == null) {
         return res.status(404).json({
-            message : "can't find the user",
+            message : "Data tidak ditemukan",
             data : null
         });
        }
@@ -52,7 +52,7 @@ module.exports = {
         return res.status(200).json({
             message : "berhasil login",
             data : theUser,
-            token
+            token : `Bearer ${token}`
         })
        }else{
         //kalo gak sesuai 401 unauthorized
@@ -89,7 +89,7 @@ module.exports = {
         //kalo null atau gaada maka tidak ditemukan 404
         if (theUser == null) {
             return res.status(404).json({
-                message : "can't find the user",
+                message : "tidak dapat menemukan user",
                 data : null
             })
         }
@@ -125,8 +125,8 @@ module.exports = {
     
             //handle kalo tidak ada id nnya 
             if (!editedUser[0]) {
-                return res.status(500).json({
-                    message: "Gagal mengupdate data pengguna",
+                return res.status(404).json({
+                    message: "Gagal mengupdate data pengguna tidak ditemukan",
                     data: null
                 });
             } else {
