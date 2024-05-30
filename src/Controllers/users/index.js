@@ -143,8 +143,7 @@ module.exports = {
                 data: null
             });
         }
-    },
-    
+    },    
     deleteUserById : async (req,res) =>{
         try {
             //mengambil id di parameter

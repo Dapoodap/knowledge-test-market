@@ -1,29 +1,27 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 module.exports = {
-    //function untuk mengecek apakah request endpoint dengan token 'Bearer token'
     verifyToken: (req, res, next) => {
-        //mengambil dari header auth...
+        // Mengambil token dari header Authorization
         const authHeader = req.headers['authorization'];
-        //dipisah dari kata 'Bearer'
-        const token = authHeader && authHeader.split(' ')[1]; 
+        const token = authHeader && authHeader.split(' ')[1];
         
-        //kalo gaada tokennya gabisa akses alias Unauthorized
+        // Jika tidak ada token, kirim respon Unauthorized
         if (!token) {
             return res.status(401).json({ message: 'Unauthorized - No token provided' });
         }
-    
-        try {
-            //kalo ada next ke func selanjutnya
-            next();
-        } catch (error) {
-            //kalo expired bakal ketahuan
-            if (error.name === 'TokenExpiredError') {
-                return res.status(401).json({ message: 'Unauthorized - Token expired' });
-            } else {
-                //atau kalo diisi sembarangan gak valid
-                return res.status(401).json({ message: 'Unauthorized - Invalid token' });
+
+        // Verifikasi token
+        jwt.verify(token, 'this is secret key', (err) => { // Gantilah 'SECRET_KEY' dengan kunci rahasia Anda
+            if (err) {
+                if (err.name === 'TokenExpiredError') {
+                    return res.status(401).json({ message: 'Unauthorized - Token expired' });
+                } else {
+                    return res.status(401).json({ message: 'Unauthorized - Invalid token' });
+                }
             }
-        }
-    },    
-}
+            // Simpan user dalam request untuk penggunaan selanjutnya jika diperlukan
+            next();
+        });
+    }
+};
